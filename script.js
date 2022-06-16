@@ -9,9 +9,15 @@ numberButtons.forEach( (button) => {
 
 
 function populateDisplay(value){
+    
     let text = display.textContent;
-    text += value.toString();
-    display.textContent = text; 
+    if(value == 0 && text == ''){
+        // do nothing as we do not want long strings of 0 at the start
+    }else{
+        text += value.toString();
+        display.textContent = text; 
+    }
+    
 }
 
 function add(num1,num2){
