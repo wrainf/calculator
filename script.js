@@ -4,31 +4,35 @@ const display = document.querySelector('#display');
 const equals = document.querySelector('#equals');
 const clear = document.querySelector('#clear');
 
-let number;
-let num1;
-let num2;
 let currOperator;
 
 numberButtons.forEach( (button) => {
-    button.addEventListener('click',() =>{
+    button.addEventListener('click', ()=>{
         populateDisplay(button.value);
-    })
+    });
 });
 
 operatorButtons.forEach( (operator) => {
     operator.addEventListener('click', () =>{
-        num1 = number;
-        clearDisplay();
-        currOperator = operator.value;
+        if(display.textContent != ''){
+            if(display.textContent.split(currOperator).length == 2){
+                equals.click();
+            }
+            currOperator = operator.value;
+            populateDisplay(operator.value);
+        }
+        
     });
 });
 
 equals.addEventListener('click',()=>{
-    num2 = number;
-    let res = operate(num1,num2,currOperator);
-    clearDisplay();
-    populateDisplay(res)
-    number = res;
+    if(display.textContent != ''){
+        let numList = display.textContent.split(currOperator);
+        let res = operate(numList[0],numList[1],currOperator);
+        clearDisplay();
+        populateDisplay(res);
+    }
+    
 });
 
 clear.addEventListener('click',()=>{
@@ -36,10 +40,11 @@ clear.addEventListener('click',()=>{
 })
 
 function clearDisplay(){
-    display.textContent = "";
-    number = '';
-    currOperator = '';
+    display.textContent = '';
 }
+
+
+
 
 function populateDisplay(value){
     
@@ -50,14 +55,13 @@ function populateDisplay(value){
     else{
         text += value;
         display.textContent = text; 
-        number = +text;
-    }
     
+    }
     
 }
 
 function add(num1,num2){
-    return num1 + num2;
+    return +num1 + +num2;
 }
 
 function subtract(num1,num2){
