@@ -1,3 +1,19 @@
+const numberButtons = document.querySelectorAll('#number');
+const display = document.querySelector('#display');
+
+numberButtons.forEach( (button) => {
+    button.addEventListener('click',() =>{
+        populateDisplay(button.value);
+    })
+});
+
+
+function populateDisplay(value){
+    let text = display.textContent;
+    text += value.toString();
+    display.textContent = text; 
+}
+
 function add(num1,num2){
     return num1 + num2;
 }
